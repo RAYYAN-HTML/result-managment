@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdlib>  
 #include <cctype>
 using namespace std;
 
@@ -14,6 +15,7 @@ struct Student
     char grade;
 };
 
+void clearScreen();  
 void mainMenu();
 void adminMenu();
 void addStudents();
@@ -33,6 +35,15 @@ Student students[100];
 int studentCount = 0;
 string password = "123";
 
+void clearScreen()
+{
+    #ifdef _WIN32
+        system("cls");  
+    #else
+        system("clear"); 
+    #endif
+}
+
 string toLowercase(string str)
 {
     string result = str;
@@ -50,34 +61,50 @@ int main()
     
     while (true)
     {
+        clearScreen();
         mainMenu();
         cout << "\nEnter your choice: ";
         cin >> choice;
         
         if (choice == 1)
         {
+            clearScreen();
             if (checkPassword())
             {
                 adminMenu();
+                clearScreen(); 
             }
             else
             {
                 cout << "\nWrong password! Access denied.\n";
+                cout << "\nPress Enter to continue...";
+                cin.ignore();
+                cin.get();
             }
         }
         else if (choice == 2)
         {
+            clearScreen();
             viewStudent();
+            cout << "\nPress Enter to continue...";
+            cin.ignore();
+            cin.get();
         }
         else if (choice == 3)
         {
-            cout << "\nThank you for using Student Result System!\n";
-            cout << "Goodbye!\n";
+            clearScreen();
+            cout << "\n========================================\n";
+            cout << "  Thank you for using Student Result System!\n";
+            cout << "               Goodbye!\n";
+            cout << "========================================\n";
             break;
         }
         else
         {
             cout << "\nInvalid choice! Please try again.\n";
+            cout << "\nPress Enter to continue...";
+            cin.ignore();
+            cin.get();
         }
     }
     return 0;
@@ -101,6 +128,7 @@ void adminMenu()
     
     while (true)
     {
+        clearScreen();
         cout << "\n";
         cout << "========================================\n";
         cout << "          ADMIN MENU                   \n";
@@ -116,27 +144,46 @@ void adminMenu()
         
         if (choice == 1)
         {
+            clearScreen();
             addStudents();
+            cout << "\nPress Enter to continue...";
+            cin.ignore();
+            cin.get();
         }
         else if (choice == 2)
         {
+            clearScreen();
             viewAllStudents();
+            cout << "\nPress Enter to continue...";
+            cin.ignore();
+            cin.get();
         }
         else if (choice == 3)
         {
+            clearScreen();
             showHighest();
+            cout << "\nPress Enter to continue...";
+            cin.ignore();
+            cin.get();
         }
         else if (choice == 4)
         {
+            clearScreen();
             deleteStudent();
+            cout << "\nPress Enter to continue...";
+            cin.ignore();
+            cin.get();
         }
         else if (choice == 5)
         {
-            break;
+            break;  
         }
         else
         {
             cout << "\nInvalid choice! Please try again.\n";
+            cout << "\nPress Enter to continue...";
+            cin.ignore();
+            cin.get();
         }
     }
 }
@@ -184,6 +231,7 @@ void addStudents()
     
     for (int i = 0; i < num; i++)
     {
+        clearScreen();
         cout << "\n----------------------------------------\n";
         cout << "    Student " << i + 1 << " of " << num << "\n";
         cout << "----------------------------------------\n";
@@ -248,9 +296,12 @@ void addStudents()
         cin.ignore();
         
         cout << "\nStudent added successfully!\n";
+        cout << "\nPress Enter to continue...";
+        cin.get();
     }
     
     studentCount += num;
+    clearScreen();
     cout << "\n" << num << " students added to " << group << " group!\n";
 }
 
@@ -295,6 +346,7 @@ void viewStudent()
         return;
     }
     
+    clearScreen();
     cout << "\n";
     cout << "========================================\n";
     cout << "           OFFICIAL RESULT              \n";
@@ -349,7 +401,6 @@ void viewAllStudents()
         cout << i + 1 << "    ";
         cout << students[i].name;
         
-        // Add spaces for alignment
         if (students[i].name.length() < 24)
             cout << string(24 - students[i].name.length(), ' ');
         else
@@ -358,7 +409,6 @@ void viewAllStudents()
         cout << students[i].roll << "      ";
         cout << students[i].group;
         
-        // Add spaces for alignment
         if (students[i].group.length() < 18)
             cout << string(18 - students[i].group.length(), ' ');
             
@@ -542,6 +592,9 @@ void updateFiles()
 bool checkPassword()
 {
     string input;
+    cout << "\n========================================\n";
+    cout << "          ADMIN LOGIN                  \n";
+    cout << "========================================\n";
     cout << "\nEnter password: ";
     cin >> input;
     return input == password;
