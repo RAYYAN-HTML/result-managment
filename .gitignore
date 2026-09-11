@@ -1,0 +1,41 @@
+# Build artifacts
+build/
+bin/
+*.o
+*.a
+*.so
+*.exe
+*.dll
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile.local
+
+# Data files (optional - uncomment to track)
+# students.dat
+# system_config.dat
+# backup_*.dat
+
+# Temporary files
+*.tmp
+*.log
+.clang_complete
+.ycm_extra_conf.py*
+
+# OS files
+.DS_Store
+Thumbs.db
+.project
+.cproject
